@@ -1,0 +1,3 @@
+package com.example.formex.data
+
+val formJsonString = "{\"formTitle\":\"Awesome Form\",\"formQuestionnaire\":[{\"id\":1,\"title\":\"Awesome Title 1\",\"type\":\"textbox\"},{\"id\":2,\"title\":\"Awesome Title 2\",\"type\":\"checkbox\",\"choices\":[{\"id\":1,\"title\":\"Choices 1\"},{\"id\":2,\"title\":\"Choices 2\"},{\"id\":3,\"title\":\"Choices 3\"}]},{\"id\":3,\"title\":\"Awesome Title 2\",\"type\":\"radiobtn\",\"choices\":[{\"id\":1,\"title\":\"Choices 1\"},{\"id\":2,\"title\":\"Choices 2\"},{\"id\":3,\"title\":\"Choices 3\"}]},{\"id\":4,\"title\":\"Awesome Title 2\",\"type\":\"dropdown\",\"choices\":[{\"id\":1,\"title\":\"Choices 1\"},{\"id\":2,\"title\":\"Choices 2\"},{\"id\":3,\"title\":\"Choices 3\"}],\"moreChoiceEndpoint\":\"dropdown.json\"}]}"
