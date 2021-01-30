@@ -1,11 +1,9 @@
 package com.example.formex.ui
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.example.formex.data.Form
-import com.example.formex.data.FormRepository
+import androidx.lifecycle.*
+import com.example.formex.data.*
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.lang.Exception
 
@@ -23,12 +21,27 @@ class FormViewModel(private val repository: FormRepository): ViewModel() {
         viewModelScope.launch {
             val data = repository.getFormData()
             if (data != null) {
+                data.formQuestionnaire?.map {
+                    if(it is DropDownQuestionnaire && !it.moreChoiceEndpoint.isNullOrEmpty()) {
+                        it.choicesLiveData = getExtraData(it.moreChoiceEndpoint)
+                    }
+                }
                 _formData.value = FormDataState.Result(data)
                 return@launch
             }
             _formData.value = FormDataState.Error(Exception("Something went Wrong"))
         }
         return formData
+    }
+    fun getExtraData(url: String): LiveData<ExtraChoiceResult> {
+        var ld: MutableLiveData<ExtraChoiceResult> = MutableLiveData()
+        viewModelScope.launch {
+            repository.getExtraData(url).collect {
+                ld.value  = it
+            }
+
+        }
+        return ld
     }
 }
 

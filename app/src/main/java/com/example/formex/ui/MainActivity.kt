@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity() {
                 is TextBoxQuestionnaire -> FormTextBoxAdapter(it)
                 is CheckBoxQuestionnaire -> FormCheckBoxAdapter(it)
                 is RadioBtnQuestionnaire -> FormRadioBtnAdapter(it)
-                is DropDownQuestionnaire -> FormDropdownAdapter(it)
+                is DropDownQuestionnaire -> FormDropdownAdapter(it, this@MainActivity)
                 else -> {}
             }}
             textQA as List<RecyclerView.Adapter<out RecyclerView.ViewHolder>>

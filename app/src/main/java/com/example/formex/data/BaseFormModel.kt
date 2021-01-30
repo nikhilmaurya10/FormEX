@@ -1,5 +1,7 @@
 package com.example.formex.data
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.example.formex.helpers.RuntimeTypeAdapterFactory
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -25,25 +27,24 @@ open class BaseQuestionnaireModel {
 class TextBoxQuestionnaire : BaseQuestionnaireModel() {
     val maxAllowedCharacters = 100
 }
-class CheckBoxQuestionnaire() : BaseQuestionnaireModel() {
+class CheckBoxQuestionnaire : BaseQuestionnaireModel() {
     val maxChoice = 4
     val choices: ArrayList<Choice> = arrayListOf()
 
 }
 
-class RadioBtnQuestionnaire() : BaseQuestionnaireModel() {
+class RadioBtnQuestionnaire : BaseQuestionnaireModel() {
     val choices: ArrayList<Choice> = arrayListOf()
 }
 
-class DropDownQuestionnaire() : BaseQuestionnaireModel() {
+class DropDownQuestionnaire : BaseQuestionnaireModel() {
     val choices: ArrayList<Choice> = arrayListOf()
     val moreChoiceEndpoint: String? = null
+    var choicesLiveData: LiveData<ExtraChoiceResult>? = null
 }
 
 class Form(
     val formTitle: String,
     val formQuestionnaire: ArrayList<BaseQuestionnaireModel>
-) {
-
-}
+)
 class Choice(val id: Int, val title: String)
