@@ -3,11 +3,14 @@ package com.example.formex.ui.adapter
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.formex.data.CheckBoxQuestionnaire
-import com.example.formex.data.TextBoxQuestionnaire
+import com.example.formex.data.FormResponseModel
+import com.example.formex.helpers.FormManager
 import com.example.formex.ui.viewholders.CheckBoxViewHolder
-import com.example.formex.ui.viewholders.TextBoxViewHolder
 
-class FormCheckBoxAdapter(val data: CheckBoxQuestionnaire): RecyclerView.Adapter<CheckBoxViewHolder>() {
+class FormCheckBoxAdapter(
+    val data: CheckBoxQuestionnaire,
+    private val formManager: FormManager
+): RecyclerView.Adapter<CheckBoxViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CheckBoxViewHolder {
         return CheckBoxViewHolder.create(parent)
     }
@@ -17,6 +20,6 @@ class FormCheckBoxAdapter(val data: CheckBoxQuestionnaire): RecyclerView.Adapter
     }
 
     override fun onBindViewHolder(holder: CheckBoxViewHolder, position: Int) {
-        return holder.bind(data)
+        return holder.bind(data, formManager)
     }
 }

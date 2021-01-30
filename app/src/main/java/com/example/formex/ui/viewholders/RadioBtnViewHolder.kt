@@ -10,13 +10,15 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.formex.R
 import com.example.formex.data.CheckBoxQuestionnaire
+import com.example.formex.data.QuestionnaireResponse
 import com.example.formex.data.RadioBtnQuestionnaire
+import com.example.formex.helpers.FormManager
 
 
 class RadioBtnViewHolder (itemView: View): RecyclerView.ViewHolder(itemView) {
     private val title: TextView = itemView.findViewById(R.id.title)
     private val radioGroup: RadioGroup = itemView.findViewById(R.id.radioGroup)
-    fun bind(data: RadioBtnQuestionnaire) {
+    fun bind(data: RadioBtnQuestionnaire, formManager: FormManager) {
         title.text = data.title
         radioGroup.orientation = RadioGroup.VERTICAL
 
@@ -28,6 +30,13 @@ class RadioBtnViewHolder (itemView: View): RecyclerView.ViewHolder(itemView) {
         }
         radioGroup.setOnCheckedChangeListener { group, checkedId ->
             Log.d("D>>>>>>>", "CheckId is $checkedId")
+            formManager.addResponse(
+                QuestionnaireResponse("radiobtn",
+                    data.id,
+                    arrayListOf(checkedId),
+                    null
+                )
+            )
         }
 
     }

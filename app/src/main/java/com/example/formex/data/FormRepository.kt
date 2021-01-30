@@ -15,12 +15,13 @@ class FormRepository {
 
     suspend fun getExtraData(url: String): Flow<ExtraChoiceResult> {
         return flow {
+            //simulating data coming from room db.
             emit(ExtraChoiceResult.Success(listOf(
                 Choice(21, "a"),
                 Choice(22, "b"),
                 Choice(23, "c")
             )))
-            delay(5000)
+            delay(5000) //simulating new data coming from server after few seconds
             emit(
                 ExtraChoiceResult.Success(
                     Gson().fromJson<ArrayList<Choice>>(

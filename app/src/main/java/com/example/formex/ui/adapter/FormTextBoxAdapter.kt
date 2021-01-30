@@ -2,10 +2,12 @@ package com.example.formex.ui.adapter
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.formex.data.FormResponseModel
 import com.example.formex.data.TextBoxQuestionnaire
+import com.example.formex.helpers.FormManager
 import com.example.formex.ui.viewholders.TextBoxViewHolder
 
-class FormTextBoxAdapter(val data: TextBoxQuestionnaire): RecyclerView.Adapter<TextBoxViewHolder>() {
+class FormTextBoxAdapter(val data: TextBoxQuestionnaire, private val formManager: FormManager): RecyclerView.Adapter<TextBoxViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TextBoxViewHolder {
         return TextBoxViewHolder.create(parent)
     }
@@ -15,6 +17,7 @@ class FormTextBoxAdapter(val data: TextBoxQuestionnaire): RecyclerView.Adapter<T
     }
 
     override fun onBindViewHolder(holder: TextBoxViewHolder, position: Int) {
-        return holder.bind(data)
+        holder.bind(data, formManager)
     }
+
 }

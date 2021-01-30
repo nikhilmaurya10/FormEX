@@ -14,6 +14,7 @@ import com.example.formex.ui.adapter.FormCheckBoxAdapter
 import com.example.formex.ui.adapter.FormDropdownAdapter
 import com.example.formex.ui.adapter.FormRadioBtnAdapter
 import com.example.formex.ui.adapter.FormTextBoxAdapter
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -27,6 +28,10 @@ class MainActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this, ViewModelFactory(FormRepository()))
             .get(FormViewModel::class.java)
         setupRecyclerView()
+        submitBtn.setOnClickListener {
+            //printing response json on to Logcat
+            viewModel.submitResponse()
+        }
     }
 
     override fun onStart() {
@@ -51,10 +56,10 @@ class MainActivity : AppCompatActivity() {
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
         formData?.let {
             val textQA = formData!!.formQuestionnaire.map { when(it) {
-                is TextBoxQuestionnaire -> FormTextBoxAdapter(it)
-                is CheckBoxQuestionnaire -> FormCheckBoxAdapter(it)
-                is RadioBtnQuestionnaire -> FormRadioBtnAdapter(it)
-                is DropDownQuestionnaire -> FormDropdownAdapter(it, this@MainActivity)
+                is TextBoxQuestionnaire -> FormTextBoxAdapter(it, viewModel.formManager!!)
+                is CheckBoxQuestionnaire -> FormCheckBoxAdapter(it, viewModel.formManager!!)
+                is RadioBtnQuestionnaire -> FormRadioBtnAdapter(it, viewModel.formManager!!)
+                is DropDownQuestionnaire -> FormDropdownAdapter(it, viewModel.formManager!!, this@MainActivity)
                 else -> {}
             }}
             textQA as List<RecyclerView.Adapter<out RecyclerView.ViewHolder>>

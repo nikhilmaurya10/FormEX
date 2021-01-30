@@ -5,9 +5,9 @@ class FormResponseModel {
     var questionnaireData: ArrayList<QuestionnaireResponse> = arrayListOf()
 }
 
-class QuestionnaireResponse {
-    var type: String? = null
-    var id: Int? = null
-    var choices: ArrayList<Int> = arrayListOf()
+data class QuestionnaireResponse(
+    var type: String? = null,
+    var id: Int? = null,
+    var choices: ArrayList<Int> = arrayListOf(),
     var textResponse: String? = null
-}
+)

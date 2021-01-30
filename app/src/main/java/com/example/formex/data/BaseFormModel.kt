@@ -44,6 +44,7 @@ class DropDownQuestionnaire : BaseQuestionnaireModel() {
 }
 
 class Form(
+    val formId: Int,
     val formTitle: String,
     val formQuestionnaire: ArrayList<BaseQuestionnaireModel>
 )

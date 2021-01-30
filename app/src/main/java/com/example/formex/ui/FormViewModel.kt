@@ -1,7 +1,11 @@
 package com.example.formex.ui
 
+import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.*
 import com.example.formex.data.*
+import com.example.formex.helpers.FormManager
+import com.google.gson.Gson
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -11,7 +15,7 @@ class FormViewModel(private val repository: FormRepository): ViewModel() {
 
     private val _formData: MutableLiveData<FormDataState> = MutableLiveData(FormDataState.Loading)
     val formData = _formData
-
+    var formManager: FormManager? = null
     init {
         getFormData()
     }
@@ -26,6 +30,7 @@ class FormViewModel(private val repository: FormRepository): ViewModel() {
                         it.choicesLiveData = getExtraData(it.moreChoiceEndpoint)
                     }
                 }
+                formManager = FormManager(data.formId)
                 _formData.value = FormDataState.Result(data)
                 return@launch
             }
@@ -42,6 +47,12 @@ class FormViewModel(private val repository: FormRepository): ViewModel() {
 
         }
         return ld
+    }
+
+    fun submitResponse() {
+        if(formManager != null) {
+            Log.d("D>>>>>>>>", Gson().toJson(formManager))
+        }
     }
 }
 
