@@ -38,7 +38,7 @@ class FormViewModel(private val repository: FormRepository): ViewModel() {
         }
         return formData
     }
-    fun getExtraData(url: String): LiveData<ExtraChoiceResult> {
+    private fun getExtraData(url: String): LiveData<ExtraChoiceResult> {
         var ld: MutableLiveData<ExtraChoiceResult> = MutableLiveData()
         viewModelScope.launch {
             repository.getExtraData(url).collect {

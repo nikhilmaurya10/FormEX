@@ -27,11 +27,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(view)
         viewModel = ViewModelProvider(this, ViewModelFactory(FormRepository()))
             .get(FormViewModel::class.java)
-        setupRecyclerView()
-        submitBtn.setOnClickListener {
-            //printing response json on to Logcat
-            viewModel.submitResponse()
-        }
     }
 
     override fun onStart() {
@@ -39,10 +34,8 @@ class MainActivity : AppCompatActivity() {
         viewModel.formData.observe(this, Observer {
             when(it) {
                 is FormDataState.Loading -> {
-                    Log.d("D>>>>>>>>", "Loading")
                 }
                 is FormDataState.Result -> {
-                    Log.d("D>>>>>>>>", it.toString())
                     formData = it.data
                     setupRecyclerView()
                 }
@@ -51,6 +44,10 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         })
+        submitBtn.setOnClickListener {
+            //printing response json on to Logcat
+            viewModel.submitResponse()
+        }
     }
     private fun setupRecyclerView() {
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
